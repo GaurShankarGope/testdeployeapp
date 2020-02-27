@@ -1,0 +1,477 @@
+<div id="dashboard-analytics" class="page-layout blank">
+    <div class="main-widget">
+        <div class="position-relative visitor_top_sec blue-600" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="column" fxLayoutAlign="start start">
+                <span class="h1 top_heading">{{companyName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="left mr-lg-32 visitor_view_sec" style="width: 500px;">
+            <div class="fuse-card auto-width top-border visitor_fuse_card">
+                <div class="position-relative p-24" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="column" fxLayoutAlign="start start">
+                        <span class="h2">Fixture Search</span>
+                    </div>
+                </div>
+                <div class="position-relative h-368 pb-16">
+                    <form [formGroup]="vesselSearchForm" #vesearchform
+                        (ngSubmit)="tradingRecordsServerSideAccordingToVessel()" style="padding: 0px !important;">
+                        <!-- <mat-form-field class="customFormfullWidth" >
+                            <mat-label>Vessel Name </mat-label>
+                            <input formControlName="vesselName" matInput placeholder="Vessel Name">
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidth" >
+                            <mat-label>CP Date </mat-label>
+                            <input formControlName="cpDate" matInput [matDatepicker]="cpDatePicker"
+                                placeholder="CP Date">
+                            <mat-datepicker-toggle matSuffix [for]="cpDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #cpDatePicker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Broker</mat-label>
+                            <mat-select matSelect formControlName="brokerId">
+                                <mat-option *ngFor="let brokerData of brokerRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': brokerData.isActive === 'N'}" [value]="brokerData.id">
+                                    {{brokerData.username}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Charterer</mat-label>
+                            <mat-select matSelect formControlName="chartererId">
+                                <mat-option *ngFor="let chartererData of chartererRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': chartererData.isActive === 'N'}" [value]="chartererData.id">
+                                    {{chartererData.username}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Owner</mat-label>
+                            <mat-select matSelect formControlName="ownerId">
+                                <mat-option *ngFor="let ownerData of ownerRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': ownerData.isActive === 'N'}" [value]="ownerData.id">
+                                    {{ownerData.username}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Fixture ID</mat-label>
+                            <mat-select matSelect formControlName="fixtureId">
+                                <mat-option *ngFor="let fixtureData of tradingFixtureRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': fixtureData.isActive === 'N'}" [value]="fixtureData.id">
+                                    {{fixtureData.identifier}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Location</mat-label>
+                            <mat-select matSelect formControlName="cpCity">
+                                <mat-option *ngFor="let cityData of cityRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': cityData.isActive === 'N'}" [value]="cityData.id">
+                                    {{cityData.cityName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+                        <!-- gauri changes -->
+                        <mat-form-field class="customFormfullWidth" >
+                            <mat-label>Fixture ID</mat-label>
+                            <mat-select matSelect formControlName="fixtureId">
+                                <mat-option *ngFor="let fixtureData of tradingFixtureRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': fixtureData.isActive === 'N'}" [value]="fixtureData.id">
+                                    {{fixtureData.identifier}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidth" >
+                            <mat-label>Vessel Name </mat-label>
+                            <input formControlName="vesselName" matInput placeholder="Vessel Name">
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Broker</mat-label>
+                            <mat-select matSelect formControlName="brokerId">
+                                <mat-option *ngFor="let brokerData of brokerRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': brokerData.isActive === 'N'}" [value]="brokerData.id">
+                                    {{brokerData.username}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidth" >
+                            <mat-label>CP Date </mat-label>
+                            <input formControlName="cpDate" readonly matInput [matDatepicker]="cpDatePicker"
+                                placeholder="CP Date">
+                            <mat-datepicker-toggle matSuffix [for]="cpDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #cpDatePicker></mat-datepicker>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Charterer</mat-label>
+                            <mat-select matSelect formControlName="chartererId">
+                                <mat-option *ngFor="let chartererData of chartererRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': chartererData.isActive === 'N'}" [value]="chartererData.id">
+                                    {{chartererData.username}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Owner</mat-label>
+                            <mat-select matSelect formControlName="ownerId">
+                                <mat-option *ngFor="let ownerData of ownerRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': ownerData.isActive === 'N'}" [value]="ownerData.id">
+                                    {{ownerData.username}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="customFormfullWidthDropDown" 
+                            style="margin-bottom: -30px !important;">
+                            <mat-label>Location</mat-label>
+                            <mat-select matSelect formControlName="cpCity">
+                                <mat-option *ngFor="let cityData of cityRecordsServerSideResponseData"
+                                    [ngClass]="{'d-none': cityData.isActive === 'N'}" [value]="cityData.id">
+                                    {{cityData.cityName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- end gauri changes -->
+                        <div *ngIf="advanceView">
+                            <br>
+                            <br>
+                            <mat-label style="margin-left: 25px; font-weight: bold;">Signed By </mat-label>
+                            <br>
+                            <br>
+                            <mat-checkbox style="margin-left: 25px;" (change)="chartererSigned($event)">Charterer
+                            </mat-checkbox>
+                            <mat-checkbox style="margin-left: 25px;" (change)="ownerSigned($event)">Owner</mat-checkbox>
+                            <br>
+                            <br>
+                            <mat-label style="margin-left: 25px; font-weight: bold;">Not Signed By </mat-label>
+                            <br>
+                            <br>
+                            <mat-checkbox style="margin-left: 25px;" (change)="chartererNotSigned($event)">Charterer
+                            </mat-checkbox>
+                            <mat-checkbox style="margin-left: 25px;" (change)="ownerNotSigned($event)">Owner
+                            </mat-checkbox>
+                            <br>
+                            <br>
+                        </div>
+                        <br>
+                        <br>
+                        <!-- <button class="cst-modal__button cst-modal__button--submit " (click)="resetForm();"
+                            style="float: right; width: 200px;">Reset</button>
+
+                        <button class="cst-modal__button cst-modal__button--submit "
+                            style="float: right; width: 220px; margin-right: 80px;"
+                            (click)="advanceOptionView()">Advance Search</button>
+                        <button class="cst-modal__button cst-modal__button--submit " type="submit"
+                            style="float: right; width: 200px;">Search</button> -->
+
+                        <!-- gauri Changes -->
+
+                        <button class="cst-modal__button cst-modal__button--submit " title="Reset" (click)="resetForm();"
+                            style="width: 60px; margin-right: 50px;padding: 9px 12px !important;">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">restore</mat-icon>
+
+                        </button>
+                        <button class="cst-modal__button cst-modal__button--submit " type="submit"
+                            style="width: 200px; margin-right: 50px;"> Search </button>
+                        <button class="cst-modal__button cst-modal__button--submit "
+                            style="width: 200px; margin-right: 50px;" (click)="advanceOptionView()">Advance
+                            Search</button>
+                        <!-- end Gauri changes -->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="right mr-lg-32 visitor_view_sec" style="width: 530px !important;">
+            <div class="fuse-card auto-width top-border visitor_fuse_card" style="width:100%;">
+                <div class="position-relative p-24" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="column" fxLayoutAlign="start start">
+                        <span class="h2">Fixture Status</span>
+                    </div>
+                </div>
+                <div class="position-relative h-368 pb-16" style="min-height: 600px;">
+                    <div class="h-390" style="">
+
+
+                        <div class="h-200">
+                            <ngx-charts-pie-chart *fuseIfOnDom [scheme]="widgets.widget7.scheme"
+                                [results]="widgets.widget7.devices" [doughnut]="true" (select)="onSelect($event)">
+                            </ngx-charts-pie-chart>
+
+                            <div class="status_tbl">
+                                <!-- <span class="h2" style="padding:2%; margin-left: 20px;">Fixture Status </span> -->
+
+                                <ul>
+
+                                    <!-- <li>
+                                        <span class="color_box2"></span> Active <span> ({{active}})</span> </li>
+                                    <li> <span class="color_box1"></span>C/P Signed <span> ({{Signed}})</span></li>
+                                    <li> <span class="color_box3"></span>C/P Not Signed<span> ({{notSigned}})</span>
+                                    </li> -->
+
+                                    <li>
+                                            <span class="color_box2"></span> Active  </li>
+                                        <li> <span class="color_box1"></span>C/P Signed </li>
+                                        <li> <span class="color_box3"></span>C/P Not Signed
+                                        </li>
+    
+    
+
+                                    <!-- <td>{{active}}</td>
+                <td>{{Signed}}</td>
+                <td>{{notSigned}}</td> -->
+
+                                </ul>
+                                <!-- <div style="background: #ff5733;
+                                color: #ffff;
+                                width: 20%;
+                                font-weight: 800;
+                                text-align: center;
+                                margin: 2%;
+                                padding: 0.8%;
+                                float: left;">
+                                    <div style="font-weight:22px;">{{active}}</div>
+                                    <br>
+                                    <b>Active</b>  
+                                </div> -->
+                            
+                                <!-- <div style="background: #ff5733;
+                                color: #ffff;
+                                width: 20%;
+                                font-weight: 800;
+                                text-align: center;
+                                margin: 2%;
+                                padding: 0.8%;
+                                float: left;">
+                                    <div style="font-weight:22px;">{{Signed}}</div>
+                                    <br>
+                                    <b>C/P Signed </b>  
+                                </div>
+     -->
+                            </div>
+
+                            <div style="margin-top: 12%; text-align: center;">
+                                    <button class="cst-modal__button cst-modal__button--submit "
+                                        style="width: 200px; margin-right: 50px; background :#21b025 ;"
+                                        (click)="advanceOptionView()"><b style="font-size: 26px;">{{active}}</b> <br /> Active</button>
+                                    <button class="cst-modal__button cst-modal__button--submit "
+                                        style="width: 200px; margin-right: 50px; background: #a833ff;"
+                                        (click)="advanceOptionView()"><b style="font-size: 26px;">{{Signed}}</b> <br /> <b>C/P Signed </b>
+                                    </button>
+                                </div>
+
+                        </div>
+
+                        <!-- <div *ngFor="let dynamicData of userRecordsServerSideResponseData; let i= index" class="user_sec">
+                            <img class="avatar" src="assets/images/avatars/Velazquez.jpg">
+                            <span>{{ dynamicData.username }}</span>
+                            <button class="view_btn">View</button>
+                        </div> -->
+                        <!-- 
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
+                            <div class="fuse-widget-front">
+                                <div class="h-400">
+                                    <ngx-charts-pie-chart
+                                        *fuseIfOnDom
+                                        >
+                                    </ngx-charts-pie-chart>
+                                </div>
+
+                                <div class="py-8 mh-16 border-top" fxLayout="row wrap" fxLayoutAlign="start center">
+
+                                    <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center"
+                                            fxFlex="100" fxFlex.gt-sm="50">
+                                        <span class="mat-display-1 mb-0">
+                                            {{widgets.widget6.footerLeft.count[widget6.currentRange]}}
+                                        </span>
+                                        <span class="h4">{{widgets.widget6.footerLeft.title}}</span>
+                                    </div>
+
+                                    <div class="py-8" fxLayout="column" fxLayoutAlign="center center" fxFlex="100"
+                                            fxFlex.gt-sm="50">
+                                        <span class="mat-display-1 mb-0">
+                                            {{widgets.widget6.footerRight.count[widget6.currentRange]}}
+                                        </span>
+                                        <span class="h4">{{widgets.widget6.footerRight.title}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fuse-widget> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- pagination -->
+        <div class="pagination_sec mat-elevation-z8" style="margin-top: 50px;">
+            <!-- <button class="cst-modal__button cst-modal__button--submit "
+                style="margin: 20px;width: 200px;padding: 10px;" (click)="tradingRecordsServerSide()"> Progress
+                Report</button>
+            <button class="cst-modal__button cst-modal__button--submit "
+                style="margin: 20px;width: 200px;padding: 10px;" (click)="tradingRecordsServerSideArchvied()"> Archived
+                Fixture</button> -->
+
+            <div class="mat-tab-link-container">
+                <button mat-button class="tab-button" [ngClass]="{'active': activeStep == 'Step1'}"
+                    (click)="setActiveMenu('Step1')" (click)="tradingRecordsServerSide()">Progress Reports</button>
+                <button mat-button class="tab-button" [ngClass]="{'active': activeStep == 'Step2'}"
+                    (click)="setActiveMenu('Step2')" (click)="tradingRecordsServerSideArchvied()">Archived
+                    Fixtures</button>
+            </div>
+
+
+            <table mat-table matSort [dataSource]="tradingRecordsData">
+                <ng-container matColumnDef="identifier">
+                    <th mat-header-cell mat-table *matHeaderCellDef mat-sort-header> Identifier </th>
+                    <td mat-cell *matCellDef="let element"> {{element.identifier}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cpDateInfo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CP Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cpDateInfo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="vesselName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vessel </th>
+                        <td mat-cell *matCellDef="let element"> {{element.vesselName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="chartererName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{'d-none': isChartererView === 'Y'}"> Charterer
+                            </th>
+                            <td mat-cell *matCellDef="let element" [ngClass]="{'d-none': isChartererView === 'Y'}">
+                                {{element.chartererName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ownerName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{'d-none': isOwnerView === 'Y'}"> Owner </th>
+                                <td mat-cell *matCellDef="let element" [ngClass]="{'d-none': isOwnerView === 'Y'}">
+                                    {{element.ownerName}} </td>
+                            </ng-container>
+                <!-- <ng-container matColumnDef="brokerName">
+                    <th mat-header-cell *matHeaderCellDef [ngClass]="{'d-none': isBrokerView === 'Y'}"> Broker </th>
+                    <td mat-cell *matCellDef="let element" [ngClass]="{'d-none': isBrokerView === 'Y'}">
+                        {{element.brokerName}} </td>
+                </ng-container>
+              
+                -->
+                <ng-container matColumnDef="statusInfo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                        <!-- <td mat-cell *matCellDef="let element">
+                                <h4 class="{{ element.classInfo }} tooltip" title="Detail: 
+                                 Last Counter : {{ element.statusInfo }} 
+                                  Time: {{element.cpTime}} 
+                                   Expiration: {{element.cpLiftTime}} NYT">{{ element.statusInfo }}</h4> -->
+                        <td mat-cell *matCellDef="let element">
+                            <h4 class="{{ element.classInfo }}">{{ element.statusInfo }}</h4>
+                        </td>
+    
+                        <!-- <span class="tooltiptext">Tooltip textTooltip textTooltip textTooltip textTooltip textTooltip textTooltip textTooltip textTooltip textTooltip text</span> -->
+                        <!-- </td> -->
+                    </ng-container>
+                <ng-container matColumnDef="progress">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-progress-bar mode="determinate" value="{{element.progress}}"></mat-progress-bar>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action" >
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="action-head"> Action </th>
+                    <td mat-cell  *matCellDef="let row" class="action">
+
+                     
+                    
+                        <button  
+                        [ngClass]="{'d-none': row.isMainTermDone == '1'}" 
+                        mat-button class="click-icon click-icon--done"  style="background:#f28a38;"
+                        (click)="recapView(row.id)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">remove_red_eye</mat-icon>
+                    </button>
+                        <!-- Recap View Button Start -->
+                        <button  
+                            [ngClass]="{'d-none': row.isMainTermDone != '1'}" 
+                            mat-button class="click-icon click-icon--done"  style="background:#f28a38;"
+                            (click)="recapView(row.id)">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">remove_red_eye</mat-icon>
+                        </button>
+                        <!-- Recap Viwe Edit Button End -->
+  <!-- Share trade Button Start -->
+  <button mat-button class="click-icon click-icon--done" style="background:#f28a38;" 
+  (click)="changeTradeModal(row.identifier,row.brokerId,row.chartererId,row.ownerId,row.id)">
+  <mat-icon aria-hidden="false" aria-label="Example share icon">share</mat-icon>
+</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tradingRecordsDisplayColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: tradingRecordsDisplayColumn;"></tr>
+            </table>
+            <!-- <ng-container class="no_data_found" *ngIf="tradingRecordsData.filteredData.length === 0">
+                    No Records Found!
+                </ng-container> -->
+
+            <ng-container *ngIf="tradingRecordsData.filteredData.length === 0">
+                <div class="no_data_found" *ngIf="!showfetchfilterDataMessage">
+                    No Records Found!
+                </div>
+            </ng-container>
+            <ng-container *ngIf="showfetchfilterDataMessage">
+                <div class="no_data_found" *ngIf="tradingRecordsData.filteredData.length === 0">
+                    Loading Data … .
+                </div>
+            </ng-container>
+            <mat-paginator #paginator showFirstLastButtons [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+            </mat-paginator>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="cst-modal" [ngClass]="{'cst-modal--active' : shareChangeModal}">
+    <div class="cst-modal__overlay"></div>
+    <div class="cst-modal__content">
+        <div class="cst-modal__header">
+            <h4 class="cst-modal__title" style="margin: 0 auto;">Please select your user to share this trade
+            </h4>
+            <button class="cst-modal__close" (click)="hideShareModal()">&times;</button>
+        </div>
+        <div class="cst-modal__body">
+            
+                <select  (change)="ChangeUserList($event)"
+                style="padding: 10px;
+                        font-size: 14px;
+                             font-weight: bold;">
+                <option value="0"> Select User Role </option>
+                <option value="1">Broker</option>
+                <option value="2">Charterer</option>
+                <option value="3">Owner</option>
+            </select>
+
+                <select  *ngIf="brokerDropdown" (change)="setShareToUserID($event)"
+                style="padding: 10px;
+                        font-size: 14px;
+                             font-weight: bold;">
+                <option value="0"> Select User </option>
+                <option *ngFor="let ownerData of userRecordsServerSideResponseData"
+                    [ngClass]="{'d-none': ownerData.isActive === 'N'}"
+                    [value]="ownerData.id">
+                    {{ownerData.username}}
+                </option>
+            </select>
+        </div>
+        <div class="cst-modal__footer">
+            <button class="cst-modal__button cst-modal__button--active" style="width: 110px !important;"
+                (click)="shareTrade()">Share</button>
+            <button class="cst-modal__button cst-modal__button--cancel" style="width: 110px !important;"
+                (click)="hideShareModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- <h2>Dashboard</h2> -->
+<!-- </div>
+</div> -->
